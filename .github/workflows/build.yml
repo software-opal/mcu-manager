@@ -35,5 +35,5 @@ jobs:
       - name: Upload release
         uses: actions/upload-artifact@v1
         with:
-          name: release-${{ matrix.os }}
-          path: build/release/${{ matrix.file }}
+          name: debug-${{ matrix.os }}
+          path: build/debug/${{ matrix.file }}
