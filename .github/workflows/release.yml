@@ -1,10 +1,13 @@
+name: Release
+
 on:
   push:
     # Sequence of patterns matched against refs/tags
     tags:
     - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
-name: Release
+env:
+  CARGO_TERM_COLOR: always
 
 jobs:
   build:
@@ -36,7 +39,7 @@ jobs:
           args: --release
       - name: Upload release
         uses: actions/upload-artifact@v1
-        with: 
+        with:
           name: release-${{ matrix.os }}
           path: build/release/${{ matrix.file }}
   upload-release-assets:
@@ -70,7 +73,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`.
-          # See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          # See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path:  build/release/${{ matrix.file }}
           asset_name: ${{ matrix.file }}

@@ -1,4 +1,4 @@
-name: Rust
+name: Build
 
 on: [push]
 
@@ -34,6 +34,6 @@ jobs:
           command: build
       - name: Upload release
         uses: actions/upload-artifact@v1
-        with: 
+        with:
           name: release-${{ matrix.os }}
           path: build/release/${{ matrix.file }}
