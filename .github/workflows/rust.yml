@@ -7,21 +7,33 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            file: mcu-manager.exe
+          - os: ubuntu-latest
+            file: mcu-manager
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
         with:
-          toolchain: table
-      - name: build
+          toolchain: stable
+      - name: Check
         uses: actions-rs/cargo@v1
         with:
-          command: build
-      - name: test
+          command: check
+      - name: Test
         uses: actions-rs/cargo@v1
         with:
           command: test
-      - name: lint
-        uses: actions-rs/clippy-check@v1
+      - name: Build release
+        uses: actions-rs/cargo@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          command: build
+      - name: Upload release
+        uses: actions/upload-artifact@v1
+        with: 
+          name: release-${{ matrix.os }}
+          path: build/release/${{ matrix.file }}
