@@ -1,0 +1,6 @@
+[submodule "mynewt-mcumgr"]
+	path = mynewt-mcumgr
+	url = git@github.com:apache/mynewt-mcumgr.git
+[submodule "mynewt-mcumgr-cli"]
+	path = mynewt-mcumgr-cli
+	url = git@github.com:apache/mynewt-mcumgr-cli.git

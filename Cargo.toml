@@ -12,3 +12,7 @@ members = [
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+mcu-lib = { path = "./mcu-lib" }
+serialport = "3.3.0"
+color-eyre = "0.3.4"
+eyre = "0.4"
